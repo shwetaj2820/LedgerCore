@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: ledgercore-postgres
+    environment:
+      POSTGRES_DB: ledgercore
+      POSTGRES_USER: ledger
+      POSTGRES_PASSWORD: ledger
+    ports:
+      - "5432:5432"
+    volumes:
+      - ledgercore-postgres-data:/var/lib/postgresql
+
+volumes:
+  ledgercore-postgres-data:
