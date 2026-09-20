@@ -1,0 +1,2 @@
+# LedgerCore
+A digital wallet 
