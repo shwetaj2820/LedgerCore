@@ -1,5 +1,7 @@
 package com.ledger.ledgercore;
 
+import com.ledger.ledgercore.exception.InvalidAmountException;
+import com.ledger.ledgercore.exception.InsufficientBalanceException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,15 @@ public class Account {
 
     public void deposit(BigDecimal amount) {
         this.balance = this.balance.add(amount);
+    }
+
+    public void withdraw(BigDecimal amount) {
+
+        if(balance.compareTo(amount) < 0) {
+            throw new InsufficientBalanceException();
+        }
+
+        this.balance = this.balance.subtract(amount);
     }
 
 }

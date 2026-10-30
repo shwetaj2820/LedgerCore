@@ -28,4 +28,11 @@ public class AccountController {
             @RequestBody BigDecimal amount) {
         return accountService.deposit(id, amount);
     }
+
+    @PostMapping("/accounts/{id}/withdraw")
+    public Account withdraw(
+            @PathVariable Long id,
+            @RequestBody BigDecimal amount) {
+        return accountService.withdraw(id, amount);
+    }
 }

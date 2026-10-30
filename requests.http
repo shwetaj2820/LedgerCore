@@ -14,3 +14,153 @@ POST http://localhost:8080/accounts/1/deposit
 Content-Type: application/json
 
 500.00
+
+###
+POST http://localhost:8080/accounts/1/withdraw
+Content-Type: application/json
+
+500.00
+
+### Concurrency test
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+1000
+
+### Check final balance
+GET http://localhost:8080/accounts/3
+
+### Negative initial balance
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+-500
+
+### Zero initial balance
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+0
+
+### transaction tests
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+1000.00
+
+### deposit
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+500.00
+
+
+### deposit
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+200.00
+
+###
+POST http://localhost:8080/accounts/5/withdraw
+Content-Type: application/json
+
+300.00
+
+###
+POST http://localhost:8080/accounts/5/withdraw
+Content-Type: application/json
+
+300.00
+
+###
+POST http://localhost:8080/accounts/5/withdraw
+Content-Type: application/json
+
+999999
+
+###
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+null
+
+###
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+10.99
+
+###
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+10.999
+
+###
+POST http://localhost:8080/accounts/999999/deposit
+Content-Type: application/json
+
+100.00
+
+###
+POST http://localhost:8080/accounts/999999/withdraw
+Content-Type: application/json
+
+100.00
+
+###
+GET http://localhost:8080/accounts/5
+
+###
+POST http://localhost:8080/accounts/5/deposit
+Content-Type: application/json
+
+10.00
+
+###
+POST http://localhost:8080/accounts/5/withdraw
+Content-Type: application/json
+
+20.00
+
+###
+GET http://localhost:8080/accounts/5
+
+###
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+0.00
+
+###
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+500.00
+
+###
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+-500.00
+
+###
+GET http://localhost:8080/accounts/6
+
+###
+GET http://localhost:8080/accounts/999999
+
+
+###
+POST http://localhost:8080/accounts/8/deposit
+Content-Type: application/json
+
+1000.00
+
+###
+
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+1000.00
