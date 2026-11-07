@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.ledger.ledgercore.Account;
-import com.ledger.ledgercore.Transaction;
-
 @SpringBootTest
 class LedgerCoreApplicationTests {
 
@@ -82,6 +79,76 @@ class LedgerCoreApplicationTests {
         assertEquals(
                 new BigDecimal("500.00"),
                 updatedAccount.getBalance()
+        );
+    }
+
+    @Test
+    void createAccount() {
+        Account account = accountService.createAccount(
+                new BigDecimal("500.00")
+        );
+
+        Account savedAccount = accountRepository
+                .findById(account.getId())
+                .orElseThrow();
+
+        assertNotNull(savedAccount.getId());
+        assertEquals(
+                new BigDecimal("500.00"),
+                savedAccount.getBalance()
+        );
+    }
+
+    @Test
+    void zeroBalanceAccount() {
+        Account account = accountService.createAccount(
+                BigDecimal.ZERO
+        );
+
+        Account savedAccount = accountRepository
+                .findById(account.getId())
+                .orElseThrow();
+
+        assertNotNull(savedAccount.getId());
+        assertEquals(
+                0,
+                savedAccount.getBalance().compareTo(BigDecimal.ZERO)
+        );
+    }
+
+    @Test
+    void negativeBalanceAccount() {
+        long accountsBefore = accountRepository.count();
+        assertThrows(InvalidAmountException.class, () ->
+                accountService.createAccount(
+                        new BigDecimal("-500.00")
+                )
+        );
+        long accountsAfter = accountRepository.count();
+        assertEquals(accountsBefore, accountsAfter);
+    }
+
+    @Test
+    void getExistingAccount() {
+        Account account = accountService.createAccount(
+                new BigDecimal("500.00")
+        );
+
+        Account retrievedAccount = accountService.getAccount(account.getId());
+
+        assertEquals(account.getId(), retrievedAccount.getId());
+        assertEquals(
+                new BigDecimal("500.00"),
+                retrievedAccount.getBalance()
+        );
+    }
+
+    @Test
+    void getNonExistingAccount() {
+        Long invalidId = -1L;
+
+        assertThrows(AccountNotFoundException.class, () ->
+                accountService.getAccount(invalidId)
         );
     }
 }
