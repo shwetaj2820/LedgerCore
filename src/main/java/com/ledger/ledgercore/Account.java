@@ -2,12 +2,12 @@ package com.ledger.ledgercore;
 
 import com.ledger.ledgercore.exception.InvalidAmountException;
 import com.ledger.ledgercore.exception.InsufficientBalanceException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Account {
@@ -15,6 +15,13 @@ public class Account {
     @Id
     private Long id;
     private BigDecimal balance;
+
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions = new ArrayList<>();
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
     protected Account() {
     } //hibernate uses this constructor

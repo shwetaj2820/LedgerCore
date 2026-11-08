@@ -49,7 +49,7 @@ public class AccountService {
         account.deposit(amount);
 
         Transaction transaction = new Transaction(
-                account.getId(),
+                account,
                 TransactionType.DEPOSIT,
                 amount,
                 Instant.now()
@@ -73,7 +73,7 @@ public class AccountService {
         account.withdraw(amount);
 
         Transaction transaction = new Transaction(
-                account.getId(),
+                account,
                 TransactionType.WITHDRAWAL,
                 amount,
                 Instant.now()
