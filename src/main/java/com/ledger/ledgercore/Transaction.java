@@ -11,7 +11,9 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long accountId;
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;
@@ -23,12 +25,12 @@ public class Transaction {
     }
 
     public Transaction(
-            Long accountId,
+            Account account,
             TransactionType type,
             BigDecimal amount,
             Instant createdAt
     ) {
-        this.accountId = accountId;
+        this.account = account;
         this.type = type;
         this.amount = amount;
         this.createdAt = createdAt;
@@ -38,8 +40,8 @@ public class Transaction {
         return id;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
     public TransactionType getType() {
