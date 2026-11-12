@@ -1,2 +1,2 @@
-# LedgerCore
-A digital wallet 
+# Secure-Payments
+A secure digital wallet 
